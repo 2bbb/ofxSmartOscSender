@@ -94,7 +94,7 @@ namespace bbb {
             }
         }
 
-        inline void sendMessage(ofxOscMessage &message, bool wrapInBundle = true) {
+        inline void sendMessage(ofxOscMessage &message, bool wrapInBundle) {
             for(auto &sender : senders) {
                 sender.second.ofxOscSender::sendMessage(message, wrapInBundle);
             }
