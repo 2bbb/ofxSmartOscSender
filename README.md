@@ -64,6 +64,8 @@ send arithmetic type as following mapping.
 
 ### extend operator<< of ofxOscMessage
 
+you can extend with `using namespace using namespace bbb::ofxOscMessageStreamOperators;`
+
 #### ex.
 
 ```
