@@ -1,6 +1,6 @@
 //
 //  ofxMultiOscSender.h
-//  ofxSimpleOscSender
+//  ofxSmartOscSender
 //
 //  Created by ISHII 2bit on 2015/11/12.
 //
@@ -9,29 +9,36 @@
 #ifndef ofxMultiOscSender_h
 #define ofxMultiOscSender_h
 
-#include "ofxSimpleOscSender.h"
+#include "ofxSmartOscSender.h"
 
 namespace bbb {
     class ofxMultiOscSender {
-        struct Key {
+        struct Target {
             std::string host;
             int port;
-            Key(std::string host, int port)
+            Target(std::string host, int port)
             : host(host)
             , port(port) {}
-            bool operator<(const Key &key) const {
+            bool operator<(const Target &key) const {
                 if(host == key.host) return port < key.port;
                 return strcmp(host.c_str(), key.host.c_str()) < 0;
             }
         };
-        std::map<Key, ofxSimpleOscSender> senders;
+        std::map<Target, ofxSmartOscSender> senders;
+        
+        bool bStrict;
+        bool wrapInBundle;
     public:
+        ofxMultiOscSender(bool bStrict = false, bool wrapInBundle = true)
+        : bStrict(bStrict)
+        , wrapInBundle(wrapInBundle) {}
+        
         inline void addTarget(const std::string &host, int port) {
-            senders.insert(std::make_pair(Key(host, port), ofxSimpleOscSender(host, port)));
+            senders.insert(std::make_pair(Target(host, port), ofxSmartOscSender(host, port, bStrict, wrapInBundle)));
         }
         
         void removeTarget(const std::string &host, int port) {
-            auto result = senders.find(Key(host, port));
+            auto result = senders.find(Target(host, port));
             if(result != senders.end()) {
                 senders.erase(result);
             } else {
@@ -39,13 +46,41 @@ namespace bbb {
             }
         }
         
-        template <typename ... Args>
-        void send(const std::string &address, const Args & ... args) {
+        void setUsingStrictFormat(bool bStrict) {
+            this->bStrict = bStrict;
             for(auto &sender : senders) {
-                sender.second.send(address, args ...);
+                sender.second.setUsingStrictFormat(bStrict);
             }
         }
         
+        bool getUsingStrictFormat() const {
+            return bStrict;
+        }
+
+        void setSendingWithWrapInBundle(bool wrapInBundle) {
+            this->wrapInBundle = wrapInBundle;
+            for(auto &sender : senders) {
+                sender.second.setSendingWithWrapInBundle(wrapInBundle);
+            }
+        }
+        
+        bool getSendingWithWrapInBundle() const {
+            return wrapInBundle;
+        }
+
+        template <typename ... Args>
+        inline void send(const std::string &address, const Args & ... args) {
+            if(bStrict) sendAsStrictFormat(address, args ...);
+            else        sendAsSimpleFormat(address, args ...);
+        }
+        
+        template <typename ... Args>
+        void sendAsStrictFormat(const std::string &address, const Args & ... args) {
+            for(auto &sender : senders) {
+                sender.second.sendAsStrictFormat(address, args ...);
+            }
+        }
+
         template <typename ... Args>
         void sendAsSimpleFormat(const std::string &address, const Args & ... args) {
             for(auto &sender : senders) {
@@ -53,9 +88,15 @@ namespace bbb {
             }
         }
         
+        inline void sendMessage(ofxOscMessage &message) {
+            for(auto &sender : senders) {
+                sender.second.ofxOscSender::sendMessage(message, wrapInBundle);
+            }
+        }
+
         inline void sendMessage(ofxOscMessage &message, bool wrapInBundle = true) {
             for(auto &sender : senders) {
-                sender.second.sendMessage(message, wrapInBundle);
+                sender.second.ofxOscSender::sendMessage(message, wrapInBundle);
             }
         }
         
