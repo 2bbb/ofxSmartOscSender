@@ -14,6 +14,8 @@
 #include <type_traits>
 
 namespace bbb {
+    using namespace ofxOscMessageStreamOperators;
+
     template <typename Arg>
     void createMessageImpl(ofxOscMessage &m, const Arg &arg) {
         m << arg;
