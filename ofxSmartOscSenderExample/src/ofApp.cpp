@@ -33,23 +33,27 @@ public:
             receiver.getNextMessage(m);
             const string &address = m.getAddress();
             if(address == "/framerate") {
-                std::cout << m.getArgTypeName(0) << ":" << m.getArgAsInt32(0) << ", "
+                std::cout << address << ": "
+                          << m.getArgTypeName(0) << ":" << m.getArgAsInt32(0) << ", "
                           << m.getArgTypeName(1) << ":" << m.getArgAsString(1)
                           << std::endl;
             }
             
             else if(address == "/random") {
-                std::cout << m.getArgTypeName(0) << ":" << (int)m.getArgAsChar(0)
+                std::cout << address << ": "
+                          << m.getArgTypeName(0) << ":" << (int)m.getArgAsChar(0)
                           << std::endl;
             }
             
             else if(address == "/stream") {
-                std::cout << m.getArgTypeName(0) << ":" << (int)m.getArgAsChar(0)
-                          << m.getArgTypeName(1) << ":" << m.getArgAsInt32(1)
-                          << m.getArgTypeName(2) << ":" << m.getArgAsInt64(2)
-                          << m.getArgTypeName(3) << ":" << m.getArgAsFloat(3)
-                          << m.getArgTypeName(4) << ":" << m.getArgAsDouble(4)
-                          << m.getArgTypeName(5) << ":" << m.getArgAsString(5);
+                std::cout << address << ": "
+                          << m.getArgTypeName(0) << ":" << (int)m.getArgAsChar(0) << ", "
+                          << m.getArgTypeName(1) << ":" << m.getArgAsInt32(1) << ", "
+                          << m.getArgTypeName(2) << ":" << m.getArgAsInt64(2) << ", "
+                          << m.getArgTypeName(3) << ":" << m.getArgAsFloat(3) << ", "
+                          << m.getArgTypeName(4) << ":" << m.getArgAsDouble(4) << ", "
+                          << m.getArgTypeName(5) << ":" << m.getArgAsString(5) << ", "
+                          << std::endl;
             }
         }
     }
