@@ -87,6 +87,7 @@ see: *ofxOscMessageStreamOperator.h*
 * renamed from `ofxSimpleOscSender` (suggested from [yusuketomoto](https://github.com/yusuketomoto))
 * add `set/getUsingStrictFormat`, `set/getSendingWithWrapInBundle`
 * extend `operator<<` for `ofxOscMessage` in **ofxOscMessageStreamOperator.h**. (idea from [satoruhiga](https://github.com/satoruhiga))
+* add example
 
 ### 2015/11/12 ver 0.0.1 release
 
