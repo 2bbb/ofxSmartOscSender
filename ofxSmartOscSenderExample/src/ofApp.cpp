@@ -2,7 +2,7 @@
 #include "ofxSmartOscSender.h"
 #include "ofxMultiOscSender.h"
 
-using namespace bbb::ofxOscMessageStreamOperators;
+using namespace bbb::ofxOscMessageStrictStreamOperators;
 
 class ofxSmartOscSenderExampleApp : public ofBaseApp {
     ofxMultiOscSender sender;
@@ -27,6 +27,11 @@ public:
             m.setAddress("/stream");
             m << '0' << 1 << 2l << 3.0f << 4.0 << "5";
             sender.sendMessage(m);
+            
+            sender.setUsingStrictFormat(true);
+            sender("/sender_stream") << '0' << 1 << 2l << 3.0f << 4.0 << "5" << bbb::send;
+            sender.setUsingStrictFormat(false);
+            sender << '0' << 1 << 2l << 3.0f << 4.0 << "5" << bbb::send("/sender_stream2");
         }
         
         while(receiver.hasWaitingMessages()) {
@@ -45,14 +50,25 @@ public:
                           << std::endl;
             }
             
-            else if(address == "/stream") {
+            else if(address == "/stream" || address == "/sender_stream") {
                 std::cout << address << ": "
                           << m.getArgTypeName(0) << ":" << (int)m.getArgAsChar(0) << ", "
                           << m.getArgTypeName(1) << ":" << m.getArgAsInt32(1) << ", "
                           << m.getArgTypeName(2) << ":" << m.getArgAsInt64(2) << ", "
                           << m.getArgTypeName(3) << ":" << m.getArgAsFloat(3) << ", "
                           << m.getArgTypeName(4) << ":" << m.getArgAsDouble(4) << ", "
-                          << m.getArgTypeName(5) << ":" << m.getArgAsString(5) << ", "
+                          << m.getArgTypeName(5) << ":" << m.getArgAsString(5)
+                          << std::endl;
+            }
+            
+            else if(address == "/sender_stream2") {
+                std::cout << address << ": "
+                          << m.getArgTypeName(0) << ":" << m.getArgAsInt32(0) << ", "
+                          << m.getArgTypeName(1) << ":" << m.getArgAsInt32(1) << ", "
+                          << m.getArgTypeName(2) << ":" << m.getArgAsInt32(2) << ", "
+                          << m.getArgTypeName(3) << ":" << m.getArgAsFloat(3) << ", "
+                          << m.getArgTypeName(4) << ":" << m.getArgAsFloat(4) << ", "
+                          << m.getArgTypeName(5) << ":" << m.getArgAsString(5)
                           << std::endl;
             }
         }
