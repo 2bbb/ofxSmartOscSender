@@ -12,6 +12,8 @@ this addon uses C++11
 
 ### ofxSmartOscSender
 
+#### sending OSC
+
 * void send(const std::string &address, const Args & ... args);
 	* `Args` : arithmetic type, `string`, `ofBuffer`
 
@@ -47,11 +49,39 @@ send arithmetic type as following mapping.
 | float              | float    |
 | double             | double   |
 
+#### stream operator
+
+* ofxSimpleOscSender &operator<<(Type t)
+
+add osc argument that allowed type.
+
+argument follows rule as strict/simple mapping is gave by [`setUsingStrictFormat`](#option_setting).
+
+* ofxSimpleOscSender &operator<<(Terminator &t)
+
+only allow `bbb::send`.
+
+##### example.
+
+```cpp
+	ofxOscSender sender;
+	...
+	sender("/address") << 1 << 2 << bbb::send;
+	sender << 1 << 2 << bbb::send("/address"); // same as above!
+	sender("/hogehoge") << 1 << 2 << bbb::send("/address"); // overwrite address with argument of send. so, same as above!
+```
+
+#### <a name="option_setting">option setting</a>
+
 * void setUsingStrictFormat(bool bStrict);
 * bool getUsingStrictFormat() const;
 
+default is `false`.
+
 * void setSendingWithWrapInBundle(bool wrapInBundle);
 * bool getSendingWithWrapInBundle() const;
+
+default is `true`.
 
 * and all `ofxOscSender`'s public method
 
@@ -64,11 +94,19 @@ send arithmetic type as following mapping.
 
 ### extend operator<< of ofxOscMessage
 
-you can extend with `using namespace using namespace bbb::ofxOscMessageStreamOperators;`
+you can extend with
 
-#### ex.
-
+```cpp
+using namespace using namespace bbb::ofxOscMessageStreamOperators;
+using namespace using namespace bbb::ofxOscMessageStrictStreamOperators;
+using namespace using namespace bbb::ofxOscMessageSimpleStreamOperators;
 ```
+
+`ofxOscMessageStreamOperators` is alias of `ofxOscMessageSimpleStreamOperators`.
+
+#### example.
+
+```cpp
 	ofxOscMessage m;
 	m.setAddress("/address");
 	m << 1 << "hoge" << 14.0f;
@@ -81,6 +119,12 @@ you can extend with `using namespace using namespace bbb::ofxOscMessageStreamOpe
 see: *ofxOscMessageStreamOperator.h*
 
 ## Update history
+
+### 2015/11/15 ver 0.0.3 release
+
+* fix wrong namespace alias
+* add stream operator for ofxSimpleOscSender/ofxMultiOscSender
+* tiny bugifxes
 
 ### 2015/11/14 ver 0.0.2 release
 
