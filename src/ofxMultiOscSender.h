@@ -28,6 +28,7 @@ namespace bbb {
         
         bool bStrict;
         bool wrapInBundle;
+        ofxOscMessage buf;
     public:
         ofxMultiOscSender(bool bStrict = false, bool wrapInBundle = true)
         : bStrict(bStrict)
@@ -87,6 +88,46 @@ namespace bbb {
                 sender.second.sendAsSimpleFormat(address, args ...);
             }
         }
+        
+#pragma mark stream
+        
+        ofxMultiOscSender &operator()(const std::string &address) {
+            buf.setAddress(address);
+            return *this;
+        }
+        
+        template <typename T>
+        get_type<std::enable_if<
+            std::is_arithmetic<T>::value,
+            ofxMultiOscSender
+        >> &operator<<(T t) {
+            if(bStrict) buf << t;
+            else        buf << simplize_cast<T>(t);
+            return *this;
+        }
+        
+        ofxMultiOscSender &operator<<(const std::string &str) {
+            buf << str;
+            return *this;
+        }
+
+        ofxMultiOscSender &operator<<(const ofBuffer &buffer) {
+            buf << buffer;
+            return *this;
+        }
+        
+        ofxMultiOscSender &operator<<(Terminator &t) {
+            if(t.address != "") {
+                operator()(t.address);
+                t.address = "";
+            }
+            sendMessage(buf);
+            buf.clear();
+            
+            return *this;
+        }
+
+#pragma mark other inherited
         
         inline void sendMessage(ofxOscMessage &message) {
             for(auto &sender : senders) {

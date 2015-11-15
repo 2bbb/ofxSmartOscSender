@@ -55,6 +55,7 @@ namespace bbb {
     class ofxSmartOscSender : public ofxOscSender {
         bool bStrict;
         bool wrapInBundle;
+        ofxOscMessage buf;
     public:
         ofxSmartOscSender(bool bStrict = false, bool wrapInBundle = true)
         : bStrict(bStrict)
@@ -106,6 +107,44 @@ namespace bbb {
             
             ofxOscMessage m = createMessage(address, simplize_cast<Args>(args) ...);
             ofxOscSender::sendMessage(m, wrapInBundle);
+        }
+        
+#pragma mark stream
+        
+        ofxSmartOscSender &operator()(const std::string &address) {
+            buf.setAddress(address);
+            return *this;
+        }
+        
+        template <typename T>
+        get_type<std::enable_if<
+            std::is_arithmetic<T>::value,
+            ofxSmartOscSender
+        >> &operator<<(T t) {
+            if(bStrict) buf << t;
+            else        buf << simplize_cast<T>(t);
+            return *this;
+        }
+        
+        ofxSmartOscSender &operator<<(const std::string &str) {
+            buf << str;
+            return *this;
+        }
+        
+        ofxSmartOscSender &operator<<(const ofBuffer &buffer) {
+            buf << buffer;
+            return *this;
+        }
+
+        ofxSmartOscSender &operator<<(Terminator &t) {
+            if(t.address != "") {
+                operator()(t.address);
+                t.address = "";
+            }
+            sendMessage(buf);
+            buf.clear();
+            
+            return *this;
         }
     };
 };
