@@ -36,25 +36,6 @@ namespace bbb {
         return m;
     }
     
-    template <typename T>
-    using get_type = typename T::type;
-
-    template <typename T>
-    using simplize_cast = get_type<std::conditional<
-        std::is_same<get_type<std::remove_const<T>>, char *>::value
-        || (std::is_array<T>::value && std::is_same<get_type<std::remove_extent<T>>, char>::value),
-        char *,
-        get_type<std::conditional<
-            std::is_integral<T>::value,
-            int,
-            get_type<std::conditional<
-                std::is_floating_point<T>::value,
-                float,
-                T
-            >>
-        >>
-    >>;
-
     class ofxSmartOscSender : public ofxOscSender {
         bool bStrict;
         bool wrapInBundle;

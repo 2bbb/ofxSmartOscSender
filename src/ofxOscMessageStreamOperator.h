@@ -12,68 +12,91 @@
 #include "ofxOscMessage.h"
 
 namespace bbb {
-    namespace ofxOscMessageStreamOperators {
+    template <typename T>
+    using get_type = typename T::type;
+    
+    template <typename T>
+    using simplize_cast = get_type<std::conditional<
+        std::is_same<get_type<std::remove_const<T>>, char *>::value
+        || (std::is_array<T>::value && std::is_same<get_type<std::remove_extent<T>>, char>::value),
+        char *,
+        get_type<std::conditional<
+            std::is_integral<T>::value,
+            int,
+            get_type<std::conditional<
+                std::is_floating_point<T>::value,
+                float,
+                T
+            >>
+        >>
+    >>;
+    
+    namespace ofxOscMessageBasicStreamOperators {
         inline ofxOscMessage &operator<<(ofxOscMessage &m, const char * const str) {
             m.addStringArg(std::string(str));
             return m;
         }
-
+        
         inline ofxOscMessage &operator<<(ofxOscMessage &m, const std::string &str) {
             m.addStringArg(str);
             return m;
         }
-
+        
+        inline ofxOscMessage &operator<<(ofxOscMessage &m, const ofBuffer &buf) {
+            m.addBlobArg(buf);
+            return m;
+        }
+    }
+    
+    namespace ofxOscMessageSimpleStreamOperators {
+        using namespace ofxOscMessageBasicStreamOperators;
+        
+        template <typename T>
+        get_type<std::enable_if<std::is_integral<T>::value, ofxOscMessage>> &operator<<(ofxOscMessage &m, T n) {
+            m.addInt32Arg(n);
+            return m;
+        }
+        
+        template <typename T>
+        get_type<std::enable_if<std::is_floating_point<T>::value, ofxOscMessage>> &operator<<(ofxOscMessage &m, T f) {
+            m.addFloatArg(f);
+            return m;
+        }
+    }
+    
+    namespace ofxOscMessageStrictStreamOperators {
+        using namespace ofxOscMessageBasicStreamOperators;
+        
         inline ofxOscMessage &operator<<(ofxOscMessage &m, bool b) {
             m.addBoolArg(b);
             return m;
         }
 
-        inline ofxOscMessage &operator<<(ofxOscMessage &m, char c) {
+        ofxOscMessage &operator<<(ofxOscMessage &m, char c) {
             m.addCharArg(c);
             return m;
         }
-
-        inline ofxOscMessage &operator<<(ofxOscMessage &m, unsigned char c) {
+        
+        template <typename T>
+        get_type<std::enable_if<
+            !std::is_same<T, char>::value && (
+                sizeof(T) < 4 ||
+                (sizeof(T) == 4 && std::is_signed<T>::value)
+            ),
+            ofxOscMessage
+        >> &operator<<(ofxOscMessage &m, T c) {
             m.addInt32Arg(c);
             return m;
         }
 
-        inline ofxOscMessage &operator<<(ofxOscMessage &m, short n) {
-            m.addInt32Arg(n);
-            return m;
-        }
-
-        inline ofxOscMessage &operator<<(ofxOscMessage &m, unsigned short c) {
-            m.addInt32Arg(c);
-            return m;
-        }
-
-        inline ofxOscMessage &operator<<(ofxOscMessage &m, int n) {
-            m.addInt32Arg(n);
-            return m;
-        }
-
-        inline ofxOscMessage &operator<<(ofxOscMessage &m, unsigned int n) {
-            m.addInt64Arg(n);
-            return m;
-        }
-
-        inline ofxOscMessage &operator<<(ofxOscMessage &m, long n) {
-            m.addInt64Arg(n);
-            return m;
-        }
-
-        inline ofxOscMessage &operator<<(ofxOscMessage &m, unsigned long n) {
-            m.addInt64Arg(n);
-            return m;
-        }
-
-        inline ofxOscMessage &operator<<(ofxOscMessage &m, long long n) {
-            m.addInt64Arg(n);
-            return m;
-        }
-
-        inline ofxOscMessage &operator<<(ofxOscMessage &m, unsigned long long n) {
+        template <typename T>
+        get_type<std::enable_if<
+            !std::is_same<T, int>::value && (
+                4 <= sizeof(T) &&
+                std::is_integral<T>::value
+            ),
+            ofxOscMessage
+        >> &operator<<(ofxOscMessage &m, T n) {
             m.addInt64Arg(n);
             return m;
         }
@@ -87,12 +110,8 @@ namespace bbb {
             m.addDoubleArg(f);
             return m;
         }
-
-        inline ofxOscMessage &operator<<(ofxOscMessage &m, const ofBuffer &buf) {
-            m.addBlobArg(buf);
-            return m;
-        }
     }
+    namespace ofxOscMessageStreamOperators = ofxOscMessageSimpleStreamOperators;
 };
 
 #endif /* ofxOscMessageStreamOperator_h */
