@@ -36,6 +36,22 @@ namespace bbb {
         return m;
     }
     
+    class ofxSmartOscSender;
+    class ofxMultiOscSender;
+    
+    class Terminator {
+        friend ofxSmartOscSender;
+        friend ofxMultiOscSender;
+        std::string address;
+    public:
+        Terminator &operator()(const std::string &address) {
+            this->address = address;
+            return *this;
+        }
+    };
+    
+    Terminator send;
+    
     class ofxSmartOscSender : public ofxOscSender {
         bool bStrict;
         bool wrapInBundle;
