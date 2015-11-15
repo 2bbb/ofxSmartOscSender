@@ -19,8 +19,11 @@ public:
         ofxOscMessage m;
         
         if(ofGetFrameNum() % 60 == 0) {
+            
+            // simple format example
             sender.sendAsSimpleFormat("/framerate", ofGetFrameNum(), "aaa");
             
+            // strict format example
             char c = rand();
             sender.sendAsStrictFormat("/random", c);
             
@@ -28,9 +31,12 @@ public:
             m << '0' << 1 << 2l << 3.0f << 4.0 << "5";
             sender.sendMessage(m);
             
-            sender.setUsingStrictFormat(true);
-            sender("/sender_stream") << '0' << 1 << 2l << 3.0f << 4.0 << "5" << bbb::send;
+            // simple format stream operator, and set address with sender's call operator example
             sender.setUsingStrictFormat(false);
+            sender("/sender_stream") << '0' << 1 << 2l << 3.0f << 4.0 << "5" << bbb::send;
+            
+            // strict format stream operator, and set address with bbb::send's call operator example
+            sender.setUsingStrictFormat(true);
             sender << '0' << 1 << 2l << 3.0f << 4.0 << "5" << bbb::send("/sender_stream2");
         }
         
@@ -52,7 +58,7 @@ public:
             
             else if(address == "/stream" || address == "/sender_stream") {
                 std::cout << address << ": "
-                          << m.getArgTypeName(0) << ":" << (int)m.getArgAsChar(0) << ", "
+                          << m.getArgTypeName(0) << ":" << m.getArgAsChar(0) << ", "
                           << m.getArgTypeName(1) << ":" << m.getArgAsInt32(1) << ", "
                           << m.getArgTypeName(2) << ":" << m.getArgAsInt64(2) << ", "
                           << m.getArgTypeName(3) << ":" << m.getArgAsFloat(3) << ", "
@@ -76,6 +82,6 @@ public:
 };
 
 int main() {
-    ofSetupOpenGL(1280, 720, OF_WINDOW);
+    ofSetupOpenGL(100, 100, OF_WINDOW);
     ofRunApp(new ofxSmartOscSenderExampleApp);
 }
