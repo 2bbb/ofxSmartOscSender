@@ -78,6 +78,8 @@ only allow `bbb::send`.
 
 default is `false`.
 
+if you want to use OSC with Cycling'74 Max, you should be use `setUsingStrictFormat(false)` (so it is default!).
+
 * void setSendingWithWrapInBundle(bool wrapInBundle);
 * bool getSendingWithWrapInBundle() const;
 
@@ -103,6 +105,8 @@ using namespace using namespace bbb::ofxOscMessageSimpleStreamOperators;
 ```
 
 `ofxOscMessageStreamOperators` is alias of `ofxOscMessageSimpleStreamOperators`.
+
+if you want to use OSC with Cycling'74 Max, you should be use `ofxOscMessageSimpleStreamOperators`
 
 #### example.
 
