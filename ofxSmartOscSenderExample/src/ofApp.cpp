@@ -6,6 +6,7 @@
 using namespace bbb::ofxOscMessageStrictStreamOperators;
 
 #include "ofxOscMessageOstreamExtension.h"
+#include "ofxOscMessageInputStream.h"
 
 class ofxSmartOscSenderExampleApp : public ofBaseApp {
     ofxMultiOscSender sender;
@@ -41,11 +42,19 @@ public:
             // strict format stream operator, and set address with bbb::send's call operator example
             sender.setUsingStrictFormat(true);
             sender << '0' << 1 << 2l << 3.0f << 4.0 << "5" << bbb::send("/sender_stream2");
+            sender("/oscin_test") << 1 << 2 << "foo" << bbb::send;
         }
         
         while(receiver.hasWaitingMessages()) {
             receiver.getNextMessage(m);
-            ofLogNotice() << m;
+            if(m.getAddress() == "/oscin_test") {
+                int x, y;
+                std::string str;
+                oscin(m) >> x >> y >> str;
+                ofLogNotice("/oscin_test") << x << ", " << y << ", " << str;
+            } else {
+                ofLogNotice() << m;
+            }
         }
     }
 };

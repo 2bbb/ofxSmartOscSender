@@ -71,6 +71,7 @@
 		8B30E93FD3D3475EED522A0E /* ofxOscBundle.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxOscBundle.h; path = ../../../addons/ofxOsc/src/ofxOscBundle.h; sourceTree = SOURCE_ROOT; };
 		8C75AFC8774A62495DD53464 /* ofxOscReceiver.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxOscReceiver.h; path = ../../../addons/ofxOsc/src/ofxOscReceiver.h; sourceTree = SOURCE_ROOT; };
 		95688C601BF9809A0086FF18 /* ofxOscMessageOstreamExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxOscMessageOstreamExtension.h; sourceTree = "<group>"; };
+		9598DF431C3A64680000C944 /* ofxOscMessageInputStream.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxOscMessageInputStream.h; sourceTree = "<group>"; };
 		95D12B071BF6C20F00299A5E /* ofxMultiOscSender.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxMultiOscSender.h; sourceTree = "<group>"; };
 		95D12B081BF6C20F00299A5E /* ofxSmartOscSender.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxSmartOscSender.h; sourceTree = "<group>"; };
 		95D12B091BF6C2DC00299A5E /* ofxOscMessageStreamOperator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxOscMessageStreamOperator.h; sourceTree = "<group>"; };
@@ -176,6 +177,7 @@
 				95D12B071BF6C20F00299A5E /* ofxMultiOscSender.h */,
 				95D12B091BF6C2DC00299A5E /* ofxOscMessageStreamOperator.h */,
 				95688C601BF9809A0086FF18 /* ofxOscMessageOstreamExtension.h */,
+				9598DF431C3A64680000C944 /* ofxOscMessageInputStream.h */,
 			);
 			path = src;
 			sourceTree = "<group>";

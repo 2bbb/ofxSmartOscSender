@@ -2,11 +2,15 @@
 
 i wanna send with `send("/address", foo, bar, buzz)`
 
+## Notice
+
+this addon uses C++11, require of0.9.0~
+
+if you use master branch and causes an error, please pull latest commit.
+
 ## Dependencies
 
 * ofxOsc
-
-this addon uses C++11
 
 ## API
 
@@ -122,7 +126,31 @@ if you want to use OSC with Cycling'74 Max, you should be use `ofxOscMessageSimp
 
 see: *ofxOscMessageStreamOperator.h*
 
+### extend operator<<(std::ostream, const ofxOscMessage &)
+
+you will get `ofLogNotice() << m;` with `#include <ofxOscMessageOstreamExtention.h>`
+
+### ofxOscMessageInputStream (has operator>>)
+
+```cpp
+ofxOscMessageInputStream(m) >> x >> y >> str;
+oscin(m) >> x >> y >> str; // same above
+```
+
+or
+
+```cpp
+oscin in(m);
+in >> x;
+in >> y;
+in >> str;
+```
+
 ## Update history
+
+### 2015/11/16 ver 0.0.4 release
+
+* add `ofxOscMessageOstreamExtention.h`
 
 ### 2015/11/15 ver 0.0.3 release
 
