@@ -148,6 +148,10 @@ in >> str;
 
 ## Update history
 
+### 2016/01/04 ver 0.0.5 release
+
+* add `ofxOscMessageInputStream.h`
+
 ### 2015/11/16 ver 0.0.4 release
 
 * add `ofxOscMessageOstreamExtention.h`
