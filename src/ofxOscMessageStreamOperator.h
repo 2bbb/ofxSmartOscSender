@@ -46,6 +46,59 @@ namespace bbb {
             m.addBlobArg(buf);
             return m;
         }
+        
+        inline ofxOscMessage &operator<<(ofxOscMessage &m, const ofColor &c) {
+            m.addInt32Arg(c.r);
+            m.addInt32Arg(c.g);
+            m.addInt32Arg(c.b);
+            m.addInt32Arg(c.a);
+            return m;
+        }
+        
+        inline ofxOscMessage &operator<<(ofxOscMessage &m, const ofShortColor &c) {
+            m.addInt32Arg(c.r);
+            m.addInt32Arg(c.g);
+            m.addInt32Arg(c.b);
+            m.addInt32Arg(c.a);
+            return m;
+        }
+        
+        inline ofxOscMessage &operator<<(ofxOscMessage &m, const ofFloatColor &c) {
+            m.addFloatArg(c.r);
+            m.addFloatArg(c.g);
+            m.addFloatArg(c.b);
+            m.addFloatArg(c.a);
+            return m;
+        }
+        
+        inline ofxOscMessage &operator<<(ofxOscMessage &m, const ofVec2f &p) {
+            m.addFloatArg(p.x);
+            m.addFloatArg(p.y);
+            return m;
+        }
+        
+        inline ofxOscMessage &operator<<(ofxOscMessage &m, const ofVec3f &p) {
+            m.addFloatArg(p.x);
+            m.addFloatArg(p.y);
+            m.addFloatArg(p.z);
+            return m;
+        }
+        
+        inline ofxOscMessage &operator<<(ofxOscMessage &m, const ofVec4f &p) {
+            m.addFloatArg(p.x);
+            m.addFloatArg(p.y);
+            m.addFloatArg(p.z);
+            m.addFloatArg(p.w);
+            return m;
+        }
+        
+        inline ofxOscMessage &operator<<(ofxOscMessage &m, const ofRectangle &rect) {
+            m.addFloatArg(rect.x);
+            m.addFloatArg(rect.y);
+            m.addFloatArg(rect.width);
+            m.addFloatArg(rect.height);
+            return m;
+        }
     }
     
     namespace ofxOscMessageSimpleStreamOperators {
