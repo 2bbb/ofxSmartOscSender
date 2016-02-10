@@ -17,6 +17,8 @@
 		72A929D3561B8232A182ABFC /* ofxOscBundle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65EEFA3DA3526E9CDD9C21F9 /* ofxOscBundle.cpp */; };
 		879A251454401BC0B6E4F238 /* OscTypes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D9BFFBBF4CC43DEE890B3C3E /* OscTypes.cpp */; };
 		8F5205AEF8861EF234F0651A /* ofxOscSender.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81967292BFC87A0144BD32C6 /* ofxOscSender.cpp */; };
+		9526588F1C6B81440016F648 /* ofxSmartOscSender.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9526588D1C6B81440016F648 /* ofxSmartOscSender.cpp */; };
+		952658911C6B829A0016F648 /* ofxOscMessageOstreamExtension.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 952658901C6B829A0016F648 /* ofxOscMessageOstreamExtension.cpp */; };
 		ADE367465D2A8EBAD4C7A8D9 /* IpEndpointName.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ADD194746185E2DA11468377 /* IpEndpointName.cpp */; };
 		C4782ECC372420ACE0615B74 /* OscPrintReceivedElements.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BC8881B3C8C0A1C45F042E7A /* OscPrintReceivedElements.cpp */; };
 		E4328149138ABC9F0047C5CB /* openFrameworksDebug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4328148138ABC890047C5CB /* openFrameworksDebug.a */; };
@@ -70,6 +72,8 @@
 		81967292BFC87A0144BD32C6 /* ofxOscSender.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxOscSender.cpp; path = ../../../addons/ofxOsc/src/ofxOscSender.cpp; sourceTree = SOURCE_ROOT; };
 		8B30E93FD3D3475EED522A0E /* ofxOscBundle.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxOscBundle.h; path = ../../../addons/ofxOsc/src/ofxOscBundle.h; sourceTree = SOURCE_ROOT; };
 		8C75AFC8774A62495DD53464 /* ofxOscReceiver.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxOscReceiver.h; path = ../../../addons/ofxOsc/src/ofxOscReceiver.h; sourceTree = SOURCE_ROOT; };
+		9526588D1C6B81440016F648 /* ofxSmartOscSender.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxSmartOscSender.cpp; sourceTree = "<group>"; };
+		952658901C6B829A0016F648 /* ofxOscMessageOstreamExtension.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxOscMessageOstreamExtension.cpp; sourceTree = "<group>"; };
 		95688C601BF9809A0086FF18 /* ofxOscMessageOstreamExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxOscMessageOstreamExtension.h; sourceTree = "<group>"; };
 		9598DF431C3A64680000C944 /* ofxOscMessageInputStream.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxOscMessageInputStream.h; sourceTree = "<group>"; };
 		95D12B071BF6C20F00299A5E /* ofxMultiOscSender.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxMultiOscSender.h; sourceTree = "<group>"; };
@@ -174,9 +178,11 @@
 			isa = PBXGroup;
 			children = (
 				95D12B081BF6C20F00299A5E /* ofxSmartOscSender.h */,
+				9526588D1C6B81440016F648 /* ofxSmartOscSender.cpp */,
 				95D12B071BF6C20F00299A5E /* ofxMultiOscSender.h */,
 				95D12B091BF6C2DC00299A5E /* ofxOscMessageStreamOperator.h */,
 				95688C601BF9809A0086FF18 /* ofxOscMessageOstreamExtension.h */,
+				952658901C6B829A0016F648 /* ofxOscMessageOstreamExtension.cpp */,
 				9598DF431C3A64680000C944 /* ofxOscMessageInputStream.h */,
 			);
 			path = src;
@@ -373,10 +379,12 @@
 				4ADB88E2FB52E76A471065DE /* ofxOscParameterSync.cpp in Sources */,
 				640279EE111671BD026CB013 /* ofxOscReceiver.cpp in Sources */,
 				8F5205AEF8861EF234F0651A /* ofxOscSender.cpp in Sources */,
+				952658911C6B829A0016F648 /* ofxOscMessageOstreamExtension.cpp in Sources */,
 				ADE367465D2A8EBAD4C7A8D9 /* IpEndpointName.cpp in Sources */,
 				67FE4C7B15C2F0478C8126C2 /* NetworkingUtils.cpp in Sources */,
 				510CAFE035E576A4E1502D52 /* UdpSocket.cpp in Sources */,
 				62545D179C94265CA1389D4A /* OscOutboundPacketStream.cpp in Sources */,
+				9526588F1C6B81440016F648 /* ofxSmartOscSender.cpp in Sources */,
 				C4782ECC372420ACE0615B74 /* OscPrintReceivedElements.cpp in Sources */,
 				0546D1A38E13BD319CC9755B /* OscReceivedElements.cpp in Sources */,
 				879A251454401BC0B6E4F238 /* OscTypes.cpp in Sources */,

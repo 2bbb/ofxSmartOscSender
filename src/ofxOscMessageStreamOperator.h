@@ -125,7 +125,7 @@ namespace bbb {
             return m;
         }
 
-        ofxOscMessage &operator<<(ofxOscMessage &m, char c) {
+        inline ofxOscMessage &operator<<(ofxOscMessage &m, char c) {
             m.addCharArg(c);
             return m;
         }
