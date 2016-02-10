@@ -50,8 +50,6 @@ namespace bbb {
         }
     };
     
-    Terminator send;
-    
     class ofxSmartOscSender : public ofxOscSender {
         bool bStrict;
         bool wrapInBundle;
