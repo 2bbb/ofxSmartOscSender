@@ -8,6 +8,4 @@
 
 #include "ofxSmartOscSender.h"
 
-namespace bbb {
-    Terminator send;
-}
+bbb::Terminator bbb::send;
