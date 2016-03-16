@@ -148,6 +148,11 @@ in >> str;
 
 ## Update history
 
+### 2016/03/15 ver 0.0.6 release
+
+* fix problem: duprecated symbol
+* fix simple mistake about README. omg...
+
 ### 2016/01/04 ver 0.0.5 release
 
 * add `ofxOscMessageInputStream.h`
