@@ -24,7 +24,7 @@ if you use master branch and causes an error, please pull latest commit.
 default mode is use `sendAsSimpleFormat`.
 you can change to use `sendAsStrictFormat` with `setUsingStrictFormat(true);`.
 
-* void sendAsStrictFormat(const std::string &address, const Args & ... args);
+* void sendAsSimpleFormat(const std::string &address, const Args & ... args);
 
 send arithmetic type as following mapping.
 
@@ -33,7 +33,7 @@ send arithmetic type as following mapping.
 | integral        | int32    |
 | floating points | float    |
 
-* void sendAsSimpleFormat(const std::string &address, const Args & ... args);
+* void sendAsStrictFormat(const std::string &address, const Args & ... args);
 
 send arithmetic type as following mapping.
 
