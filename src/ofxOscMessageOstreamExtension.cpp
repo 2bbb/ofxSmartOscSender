@@ -9,7 +9,7 @@
 #include "ofxOscMessageOstreamExtension.h"
 
 std::ostream &operator<<(std::ostream &os, const ofxOscMessage &m) {
-    os << "from " << m.getRemoteIp() << ":" << m.getRemotePort() << " [" << m.getAddress() << "]:\n  {";
+    os << "from " << m.getRemoteHost() << ":" << m.getRemotePort() << " [" << m.getAddress() << "]:\n  {";
     for(size_t i = 0; i < m.getNumArgs(); i++) {
         switch(m.getArgType(i)) {
             case OFXOSC_TYPE_INT32:
@@ -77,9 +77,9 @@ std::ostream &operator<<(std::ostream &os, const ofxOscMessage &m) {
                 uint8_t color[4];
                 memcpy(color, &val, 4);
                 os << i << " : {" << color[0] << ", "
-                << color[1] << ", "
-                << color[2] << ", "
-                << color[3] << "} [color], ";
+                   << color[1] << ", "
+                   << color[2] << ", "
+                   << color[3] << "} [color], ";
 #endif
                 break;
             }
