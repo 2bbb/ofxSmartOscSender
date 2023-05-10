@@ -69,9 +69,6 @@ std::ostream &operator<<(std::ostream &os, const ofxOscMessage &m) {
             case OFXOSC_TYPE_BLOB:
                 os << i << " : " << m.getArgAsInt64(i) << " [blob], ";
                 break;
-            case OFXOSC_TYPE_BUNDLE:
-                os << i << " : [bundle], ";
-                break;
             case OFXOSC_TYPE_RGBA_COLOR: {
 #if true || OF_VERSION_MINOR < 9 || (OF_VERSION_MINOR == 9 && OF_VERSION_PATCH == 0)
                 os << i << " : [color], ";
