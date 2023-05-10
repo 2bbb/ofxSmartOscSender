@@ -103,9 +103,9 @@ default is `true`.
 you can extend with
 
 ```cpp
-using namespace using namespace bbb::ofxOscMessageStreamOperators;
-using namespace using namespace bbb::ofxOscMessageStrictStreamOperators;
-using namespace using namespace bbb::ofxOscMessageSimpleStreamOperators;
+using namespace bbb::ofxOscMessageStreamOperators;
+using namespace bbb::ofxOscMessageStrictStreamOperators;
+using namespace bbb::ofxOscMessageSimpleStreamOperators;
 ```
 
 `ofxOscMessageStreamOperators` is alias of `ofxOscMessageSimpleStreamOperators`.
