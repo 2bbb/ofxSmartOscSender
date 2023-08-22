@@ -84,6 +84,10 @@ namespace bbb {
             ofxOscSender::sendMessage(m, wrapInBundle);
         }
         
+        void sendMessage(const ofxOscMessage &m) {
+            ofxOscSender::sendMessage(m, wrapInBundle);
+        }
+        
         template <typename ... Args>
         inline void send(const std::string &address, const Args & ... args) {
             static_assert(sizeof...(args) != 0, "args is null at send");
