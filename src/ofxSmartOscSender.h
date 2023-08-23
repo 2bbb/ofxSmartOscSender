@@ -80,10 +80,6 @@ namespace bbb {
             return wrapInBundle;
         }
 
-        void sendMessage(ofxOscMessage &m) {
-            ofxOscSender::sendMessage(m, wrapInBundle);
-        }
-        
         void sendMessage(const ofxOscMessage &m) {
             ofxOscSender::sendMessage(m, wrapInBundle);
         }
