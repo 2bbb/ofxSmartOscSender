@@ -128,7 +128,7 @@ see: *ofxOscMessageStreamOperator.h*
 
 ### extend operator<<(std::ostream, const ofxOscMessage &)
 
-you will get `ofLogNotice() << m;` with `#include <ofxOscMessageOstreamExtention.h>`
+you will get `ofLogNotice() << m;` with `#include "ofxOscMessageOstreamExtention.h"`
 
 ### ofxOscMessageInputStream (has operator>>)
 
