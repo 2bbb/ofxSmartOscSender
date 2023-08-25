@@ -8,6 +8,8 @@
 
 #include "ofxOscMessageOstreamExtension.h"
 
+#if (OF_VERSION_MAJOR == 0) && (OF_VERSION_MINOR < 10)
+
 std::ostream &operator<<(std::ostream &os, const ofxOscMessage &m) {
     os << "from " << m.getRemoteHost() << ":" << m.getRemotePort() << " [" << m.getAddress() << "]:\n  {";
     for(size_t i = 0; i < m.getNumArgs(); i++) {
@@ -90,3 +92,5 @@ std::ostream &operator<<(std::ostream &os, const ofxOscMessage &m) {
     }
     return os << "}";
 }
+
+#endif
